@@ -1,0 +1,17 @@
+{
+    "version": "1.0.0",
+    "manifest_version": 3,
+    "name": "Recipe Estimator",
+    "permissions": ["scripting", "tabs", "activeTab"],
+    "description": "This extension estimates the cost of ingredients on recipe sites.",
+    "action": {
+        "default_popup": "js/index.html",
+        "default_title": "Recipe Estimator"
+    },
+    "host_permissions": [
+        "<all_urls>"
+    ],
+    "background": {
+      "service_worker": "js/background.js"
+    }
+}
