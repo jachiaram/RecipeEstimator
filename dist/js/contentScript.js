@@ -1,1 +1,0 @@
-(()=>{const e=document.documentElement.outerHTML;chrome.runtime.sendMessage({action:"sendHTML",html:e})})();

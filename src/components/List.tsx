@@ -10,7 +10,7 @@ interface ListProps {
 export default function List({ ingredients }: ListProps) {
   const formatPrice = (price: number | undefined) => {
     if (price === undefined || price === 0.0) {
-      return "$0.00"; // or "—" or "" depending on your preference
+      return ""; // or "—" or "" depending on your preference
     } else {
       return `$${price.toFixed(2)}`;
     }

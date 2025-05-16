@@ -5,7 +5,7 @@ function getStandardDeviation(arr) {
   return Math.sqrt(variance);
 }
 
-chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === "FETCH_PRICES") {
     (async () => {
     try {
@@ -34,8 +34,7 @@ chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
         sendResponse([]);
       }
     })();
-
-    return true;
   }
+  return true;
 });
 

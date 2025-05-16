@@ -1,5 +1,4 @@
-import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 import Button from './components/Button';
 import List from './components/List';
@@ -8,6 +7,7 @@ function App() {
   const [ingredients, setIngredients] = useState<{ name: string; price: number }[]>([]);
   const [ll, setll] = useState<string>("");
   const [total, setTotal] = useState<number>(0);
+  const [hide, setHide] = useState<boolean>(true);
 
   // get user location
   useEffect(() => {
@@ -106,6 +106,7 @@ const fetchPrices = async (ingredients: { name: string; price: number }[], ll: s
     });
   };
 
+  //use api to get ingredient prices
   const updatePrices = async () => {
   try {
     const response = await fetchPrices(ingredients, ll);
@@ -120,50 +121,19 @@ const fetchPrices = async (ingredients: { name: string; price: number }[], ll: s
 
       setIngredients(updatedIngredients);
       setTotal(parseFloat(sum.toFixed(2)));
+      setHide(false);
       }
   } catch (err) {
     console.error("Failed to fetch prices", err);
   }
 };
 
-  //use api to get ingredient prices
-//	const updatePrices = async (ingredients: {name: string, price: number}[]) => {
-//  chrome.runtime.sendMessage(
-//     {
-//       type: "FETCH_PRICES",
-//       ingredients: ingredients,
-//       ll: ll
-//     },
-//     (response: {ingredients: {name: string, price: number}[]}) => {
-//       if(chrome.runtime.lastError) {
-//         console.error("Runtime error:", chrome.runtime.lastError.message);
-//         alert(response);
-//         return;
-//       }
-//       alert("got a response");
-//       if(Array.isArray(response?.ingredients)) {
-//         let sum = 0;
-//         //sum prices
-//         response.ingredients.forEach(ingredient => {
-//           if(typeof ingredient.price === 'number') {
-//             sum += ingredient.price;
-//           }
-//         });
-//         alert(sum);          
-//         //update prices on total and ingredients
-//         setTotal(parseFloat(sum.toFixed(2)));
-//         setIngredients(response.ingredients);
-//       }
-//     }
-//   ); 
-// };
-
 return (
     <div className="App">
-      <h1>List of ingredients:</h1>
-      <Button title="Get Prices" onClick={async () => {updatePrices()}}/>
-      <List ingredients={ingredients}/>
-      <p>The total cost is: {total}</p>
+        <h1>List of ingredients:</h1>
+        <List ingredients={ingredients}/>
+        <p style={{ visibility: hide ? 'hidden' : 'visible' }}>The total cost is: ${total}</p>
+        <Button title="Get Prices" onClick={async () => {updatePrices()}}/>
     </div>
   );
 }

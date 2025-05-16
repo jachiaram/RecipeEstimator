@@ -1,3 +1,5 @@
+import './Button.css';
+
 interface ButtonProps {
 	loading?: boolean;
 	onClick?: () => void;
@@ -10,7 +12,7 @@ export default function Button({
 	title,
 }: ButtonProps) {
 	return (
-		<button
+		<button className='button'
 		onClick={onClick}>{loading ? 'Loading' : title}</button>
 	);
 }
